@@ -1,0 +1,2 @@
+[console_scripts]
+SMDesigner = SMDesigner.SMDsigner3_test:main
