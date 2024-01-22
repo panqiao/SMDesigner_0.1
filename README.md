@@ -11,30 +11,16 @@ SMDesigner - Structure mutation designer
 ------------------------------------------------------------------------
 SMDesigner Install
 
-Before installing SMDesigner, make sure you have gcc, if not you can use below
-command: 
-    xcode-select --install
-    xcrun --version 
-
-SMDesigner Install successfully in the Anaconda environment of the Mac OS system
-and ......
-
-SMDesigner dependent infernal and R2R. 
-    Install infernal using a package manager:
-        If you are using Debian, you can install it with:
-            sudo apt-get install infernal infernal-doc
-        Bioconda package, thanks to Björn Grüning. If you have conda, you can install with:
-            conda install -c bioconda infernal
-        Homebrew Science package. With homebrew, you can install it with
-            brew tap brewsci/bio
-            brew install infernal
-    R2R install at the same time with SMDesigner. But if there is an error, you need to install
-    seperiatlly.
-
 SMDesigner is packed with setup tools, you can use pip to install.
     download SMDesigner-1.0.0.tar.gz
     pip install SMDesigner-1.0.0.tar.gz
 
+Check details in README_INSTALL.md file
+
 ------------------------------------------------------------------------
 Run test
+
+After command 'pip install SMDesigner-1.0.0.tar.gz'
+type 'SMDesigner'
+then type 'test' or '{your sample folder name with path}'
     

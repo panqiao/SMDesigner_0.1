@@ -1,3 +1,6 @@
 include LICENSE
 include README.md
+include SMDesigner/test/demo
+include SMDesigner/test/r2r_test
+include SMDesigner/R2R_install.sh
 recursive-include SMDesigner/ *

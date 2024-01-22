@@ -4,63 +4,22 @@ from pathlib import Path
 import re
 import subprocess
 import shutil
-from SMDesigner.main import main
-'''
-def is_r2r_installed(path):
-    #script_path = Path(__file__).parents[0]
-    #print(script_path)
-    input_file=path/'test'/'demo'/'demo1.sto'
-    output_file=path/'test'/'demo1.cons.sto'
-    test_command = ["sudo","r2r", "--GSC-weighted-consensus", input_file, 
-                    output_file, "3", "0.97", "0.9", "0.75", 
-                    "4", "0.97", "0.9", "0.75", "0.5", "0.1"]
-    try:
-        # Run the test command for R2R
-        subprocess.run(test_command, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        return True
-    except (subprocess.CalledProcessError, FileNotFoundError):
-        return False
-'''
-def is_r2r_installed():
-    try:
-        # Use 'whereis' to find the R2R command
-        result = subprocess.run(["whereis", "r2r"], capture_output=True, text=True)
-        # Check if the output contains a path after 'r2r:'
-        if '/r2r' in result.stdout:
-            return True
-        else:
-            return False
-    except FileNotFoundError:
-        # 'whereis' command not found
-        return False
-def install_r2r(path_install_r2r):
-    try:
-        # Assuming the installation script is named 'install_r2r.sh' and is in the current directory
-        #print(path_install_r2r)
-        subprocess.run(['sudo', path_install_r2r], check=True)
-        print("R2R installation completed.")
-    except subprocess.CalledProcessError as e:
-        print(f"An error occurred during R2R installation: {e}")
-
 def check_input_folder(input_folder):
     if not input_folder.exists() or not input_folder.is_dir():
         print(f"Error: The specified input folder '{input_folder}' does not exist or is not a directory.")
         return False
     #print('输入正确')
     return True
-                    
-
-
 def get_user_input():
     script_path = Path(__file__).parents[0]
-    print(script_path)
+    #print(script_path)
     while True:
         input_folder_name = input("Enter the test input folder name 'test' or sample folder name with path: ")
 
         if input_folder_name == 'test':
             input_folder_test = script_path / 'test'
             if check_input_folder(input_folder_test):
-                print(input_folder_test)
+                #print(input_folder_test)
                 return input_folder_test
         elif input_folder_name.lower() == 'exit':
             print('Exit program.')
@@ -73,37 +32,33 @@ def get_user_input():
                 return input_folder_sample
             else:
                 print("Invalid input folder. Please try again or you can type 'exit' to quit program.")
-
-
-
 def create_output_folders(output_folders):
-    print('create_output_folders start')
+    #print('create_output_folders start')
     #seq_struc_riboswitch_add
     for folder in output_folders:
         if not folder.exists():
             try:
                 folder.mkdir(parents=True, exist_ok=True)
-                print(f'Created folder: {folder}')
+                #print(f'Created folder: {folder}')
             except Exception as e:
                 print(f'Error creating folder {folder}: {e}')
-
 ############################################################process_with_R2R
 
 
 def process_files_for_r2r(input_folder, output_folder_r2r):
-    print('process_files_for_r2r start')
+    #print('process_files_for_r2r start')
     # ... (your existing code)
     #files_r2r = os.listdir(input_folder)
     files_r2r = [f for f in os.listdir(input_folder) if f.endswith('.sto')]
     
     if not files_r2r:
-        print("No '.sto' files found in the folder. Exiting the program.")
+        #print("No '.sto' files found in the folder. Exiting the program.")
         exit()
     else:
-        print(files_r2r)
+        #print(files_r2r)
 
         for file in files_r2r:
-            print(file)
+            #print(file)
             file_name_r2r = '.'.join(file.split('.')[0:-1])
             input_file_r2r = input_folder / file
             output_file_r2r = output_folder_r2r / f'{file_name_r2r}.cons.sto'
@@ -122,10 +77,11 @@ def process_files_for_r2r(input_folder, output_folder_r2r):
             try:
                 result = os.system(' '.join(command_r2r))
                 if result != 0:
-                    print(f"Error processing {input_file_r2r}, R2R not install")
+                    print(f"Error processing {input_file_r2r}, R2R runing false")
                     break
                 else:
-                    print(f"Processed {input_file_r2r} successfully.")
+                    #print(f"Processed {input_file_r2r} successfully.")
+                    pass
                 # ... (rest of your code)
             except Exception as e:
                 print(f"Error processing {input_file_r2r}: {e}")
@@ -142,15 +98,15 @@ def process_files_for_r2r(input_folder, output_folder_r2r):
 '''
 ############################################################process_noted_line and make structure line common
 def process_files_for_seq_struc(input_folder_r2r, output_folder_seq_struc, no_struc_ribo_file):
-    print('process_files_for_seq_struc start')
+    #print('process_files_for_seq_struc start')
     files_seq_struc = [f for f in os.listdir(input_folder_r2r) if f.endswith('.cons.sto')]
     #print(files_seq_struc)
     for file_seq_struc in files_seq_struc:
         process_single_seq_struc_file(input_folder_r2r, output_folder_seq_struc, file_seq_struc, no_struc_ribo_file)
-    print('process_files_for_seq_struc ended')
+    #print('process_files_for_seq_struc ended')
 
 def process_single_seq_struc_file(input_folder_r2r, output_folder_seq_struc, file_seq_struc, no_struc_ribo_file):
-    print('process_single_seq_struc_file start')
+    #print('process_single_seq_struc_file start')
     input_file_seq_struc = input_folder_r2r / file_seq_struc
     output_file_seq_struc = output_folder_seq_struc / f'{file_seq_struc.strip()[0:-9]}.seqStruc'
 
@@ -160,10 +116,10 @@ def process_single_seq_struc_file(input_folder_r2r, output_folder_seq_struc, fil
         for j_seq_struc in ls_uni_seq:
             line1_seq_struc = j_seq_struc + '\n'
             fo_seq_struc.write(line1_seq_struc)
-    print('process_single_seq_struc_file ended')
+    #print('process_single_seq_struc_file ended')
 
 def process_seq_struc_lines(input_file, no_struc_ribo_file):
-    print('process_seq_struc_lines start')
+    #print('process_seq_struc_lines start')
     ls_uni_seq = []
     with open(input_file, "r",encoding='utf-8') as fi_seq_struc:
         ls_seq_struc = fi_seq_struc.readlines()
@@ -222,12 +178,12 @@ def process_seq_struc_lines(input_file, no_struc_ribo_file):
                         seq_ls=seq.split()
                         seq=f'{seq_ls[0]:<45}'+seq_ls[-1]
                         ls_uni_seq.append(seq)
-        print('process_seq_struc_lines ended')
+        #print('process_seq_struc_lines ended')
         return ls_uni_seq
         
 ########################################################add_struc_info_lines from test_find_all_loop.py and is part1 of make_mu_structure2_riboswitch.py
 def findloop(string,ls_loop_new,ls_loop1_new):
-    print('findloop start')
+    #print('findloop start')
     ls_loop=[]
     ls_loop1=[]
     ls_stem=[]
@@ -340,7 +296,7 @@ def findloop(string,ls_loop_new,ls_loop1_new):
     ls_loop1_new.extend(ls_loop1)
     return(string_strc,string,ls_loop,ls_loop_new,ls_loop1,ls_loop1_new)
 def mark_stem_struc(string_strc,string1,ls_loop,ls_loop1,ls_stem,ls_struc,num_cycle,num_stem,num_stem1,ls_temp):
-    print('mark_stem_struc start')
+    #print('mark_stem_struc start')
     #ls_temp=[]
     if num_cycle==1:
         num9=string_strc.index('<')
@@ -522,7 +478,7 @@ def mark_stem_struc(string_strc,string1,ls_loop,ls_loop1,ls_stem,ls_struc,num_cy
                                 
     return(ls_stem,ls_struc,num_stem,num_stem1,ls_temp)
 def make_strc_info(string):
-    print('make_strc_info start')
+    #print('make_strc_info start')
     string1=string
     ls_loop_new=[]
     ls_loop1_new=[]
@@ -581,7 +537,7 @@ def process_files_for_struc_note(input_fold_seq_stuc,output_folder_seq_struc_add
     for file_seq_struc in files_seq_struc:
         process_single_seq_struc_file1(input_fold_seq_stuc, output_folder_seq_struc_add, file_seq_struc)
 def process_single_seq_struc_file1(input_fold_seq_stuc, output_folder_seq_struc_add, file_seq_struc):
-    print('process_single_seq_struc_file1 start')
+    #print('process_single_seq_struc_file1 start')
     input_file=input_fold_seq_stuc / file_seq_struc
     output_file=output_folder_seq_struc_add / (file_seq_struc[0:-9]+".seqStrucAdd")
     foo=open('no_struc_mark.txt','w')
@@ -714,7 +670,7 @@ def modi_basepair(str4,str3o,str1):
     return(str3)
 ##count number for structure feature, dic={stem_s1_0:num_cov},dic1={stem_:num_com},dic2={stem_:cons}
 def stem_cov_num(line1,line2):
-    print('stem_cov_num start')
+    #print('stem_cov_num start')
     #print(line1)
     #print(line2)
     #line1=str5='s1_1,s1_1'
@@ -767,12 +723,12 @@ def stem_cov_num(line1,line2):
     dic1=sorted(dic1.items(), key=lambda item:item[1], reverse=True)
     dic2=sorted(dic2.items(), key=lambda item:item[1], reverse=True)
     #print(dic)
-    print('stem_cov_num ended')
+    #print('stem_cov_num ended')
     return(dic,dic1,dic2)
 #cov>1
 def pick_stem(dic1):
 #dic1={stem_s1_0-5:1,stem_s1_1-5:1,stem_s2_0-5:1}
-    print('pick_stem start')
+    #print('pick_stem start')
     if len(dic1)==1:
         num2=dic1[0][0].split('-')[0][5::]
         return num2
@@ -790,7 +746,7 @@ def pick_stem(dic1):
         return num2
 ####cov_num>1     
 def mu_po(num,str5,str3,str1,str4,num1):
-    print('mu_po start')
+    #print('mu_po start')
     ls_str5=str5.split('/')
     po=[]
     nt=[]
@@ -847,7 +803,7 @@ def mu_po(num,str5,str3,str1,str4,num1):
     return(p1,n2,p0,n0) 
 #cov==1 
 def mu_po1(num,str5,str3,str1,str4):
-    print('mu_po1 start')
+    #print('mu_po1 start')
     #print(num)
     #print(str5)
     ls_str5=str5.split('/')
@@ -882,7 +838,7 @@ def mu_po1(num,str5,str3,str1,str4):
     for j in dic2:
         #print(dic2)
         if j[0].split('-')[0][5::]==num:
-            print(j[0])
+            #print(j[0])
             num_com=int(j[1])
             #print(num_com)
 
@@ -938,12 +894,12 @@ def mu_po1(num,str5,str3,str1,str4):
     p1.append(po[2])
     n2.append(nt[0])
     n2.append(nt[2])
-    print('mu_po1 ended')
+    #print('mu_po1 ended')
     return(p1,n2,po,nt)
 
 #com==1
 def mu_po2(num,str5,str3,str1,str4):
-    print('mu_po2 start')
+    #print('mu_po2 start')
     ls_str5=str5.split('/')
     po=[]
     nt=[]
@@ -1015,7 +971,7 @@ def mu_po2(num,str5,str3,str1,str4):
     return(p1,n2,po,nt)
 #conser==1
 def mu_po3(num,str5,str3,str1,str4):
-    print('mu_po3 start')
+    #print('mu_po3 start')
     ls_str5=str5.split('/')
     po=[]
     nt=[]
@@ -1067,7 +1023,7 @@ def mu_po3(num,str5,str3,str1,str4):
     n2.append(nt[2])
     return(p1,n2,po,nt)
 def process_files_make_mutation(input_folder_structure_add,output_fold_fa):
-    print('process_files_make_mutation start')
+    #print('process_files_make_mutation start')
     structure_files = [f for f in os.listdir(input_folder_structure_add) if f.endswith('.seqStrucAdd')]
     #print(structure_files)
 
@@ -1077,7 +1033,7 @@ def process_files_make_mutation(input_folder_structure_add,output_fold_fa):
 
         process_single_structure_add(input_folder_structure_add,file,output_fold_fa)
 def process_single_structure_add(input_folder_structure_add,file,output_fold_fa):
-    print('process_single_structure_add start')
+    #print('process_single_structure_add start')
     input_file_struc=input_folder_structure_add / file
     #print(input_file_struc)
     fi=open(input_file_struc,"r")
@@ -1177,7 +1133,7 @@ def process_single_structure_add(input_folder_structure_add,file,output_fold_fa)
 #[('stem_s1_0-3', 1), ('stem_s1_1-2', 0)]
 
         if num_all_pair>2:
-            print('structure work')
+            #print('structure work')
             
 
             if dic1[0][1]>1:
@@ -1208,10 +1164,10 @@ def process_single_structure_add(input_folder_structure_add,file,output_fold_fa)
     #[('stem1-17', 8), ('stem0-4', 3), ('stem4-7', 3), ('stem3-5', 2), ('stem2-3', 1)]
                         num2=dic4[0][0]
                         if dic4[0][1]>1:
-                            print(dic4)
+                            #print(dic4)
                             p1,n2,p0,n0=mu_po(num2,str5,str3,ls_str1[m],str4,'?')
                         else:
-                            print('less 2 basepair')
+                            print(f'{file}less 2 basepair in each stem')
             seq_mu1=multi_sub(ls_str1[m],p1,n2)+'\n'
             seq_mu2=multi_sub(ls_str1[m],p0,n0)+'\n'
         #seq_mu1=seq_mu.replace('-','')+'\n'
@@ -1223,38 +1179,92 @@ def process_single_structure_add(input_folder_structure_add,file,output_fold_fa)
             fo.write(seq_mu1.replace('.','').replace('-',''))
             fo.write(seq_mu2_id)
             fo.write(seq_mu2.replace('.','').replace('-',''))
-            print('mutation successfully')
+            #print('mutation successfully')
         #fo.write(p1,n2,p0,n0)
         else:
 
-            print(':no structure')
-    print('single_structure_add ended')
+            print(f'{file}:no structure')
+    #print('single_structure_add ended')
 
 # Main script
+def main():
 
-def starter_function():
-    print('SMDesigner3_test is running')
-#if __name__ == "__main__":
-    script_path = Path(__file__).parents[0]
-    #print('SMDesigner3_test is runing')
+    input_folder = get_user_input()
     
-    r2r_install_path = script_path / 'R2R_install.sh'
-    print(script_path)
-    try:
-        if is_r2r_installed():
-            print("R2R already installed.")
-            main()
-        else:
-            print("R2R is not installed. Installing now...")
-            #install_r2r(r2r_install_path)
-            if install_r2r(r2r_install_path):
-                print("R2R installed successfully.")
-                print("Calling main() after installation.")
-                main()
-            else:
-                print("Failed to install R2R.")
-                print('install R2R manually')
-    except Exception as e:
-        print(f"An error occurred: {e}")
+    #print(r2r_path)
+    if input_folder.name=='test':
+        input_folder=input_folder/'demo'
 
-    
+        output_folder_r2r = Path('./test/riboswitch_cons_sto_test')
+        output_folder_seq_struc = Path('./test/seq_struc_riboswitch_test/')
+        output_folder_seq_struc_add=Path('./test/seq_struc_riboswitch_add_test')
+        output_fold_fa=Path('./test/seq_struc_mu_test')
+        no_struc_ribo_file = 'no_struc_ribo_test.txt'
+
+        output_folders = [output_folder_r2r, output_folder_seq_struc,output_folder_seq_struc_add,output_fold_fa]
+        create_output_folders(output_folders)
+
+    # Call your function with the r2r_path parameter
+        process_files_for_r2r(input_folder, output_folder_r2r)
+
+
+
+        #process_files_for_r2r(input_folder, output_folder_r2r)
+        #print('R2R run finished')
+        process_files_for_seq_struc(output_folder_r2r, output_folder_seq_struc, no_struc_ribo_file)
+        #print('common style finished')
+        process_files_for_struc_note(output_folder_seq_struc,output_folder_seq_struc_add)
+        #print('structure feature added' )
+        process_files_make_mutation(output_folder_seq_struc_add,output_fold_fa)
+        #print('mutation design finished')
+        for folder in [output_folder_r2r, output_folder_seq_struc, output_folder_seq_struc_add]:
+            if folder.exists() and folder.is_dir():
+                # Check if the folder is not empty
+                if not os.listdir(folder):
+                    # If the folder is empty, remove it
+                    folder.rmdir()
+                else:
+                    # If the folder is not empty, remove it along with all its contents
+                    shutil.rmtree(folder)
+        print('SMDesigner test finished')
+        print(f'you can find test output at {output_fold_fa}')
+
+    else:
+        input_folder_sample = input_folder.parents[0]
+        #print(input_folder_sample)
+        output_folder_r2r = input_folder_sample.joinpath( 'r2r_cons_sto')
+        #output_folder_r2r = Path(input_folder_sample+'/sample/r2r_cons_sto/')
+
+        output_folder_seq_struc = input_folder_sample.joinpath('seq_struc')
+        output_folder_seq_struc_add=input_folder_sample.joinpath('seq_struc_add')
+        output_fold_fa=input_folder_sample.joinpath('seq_struc_mu')
+        no_struc_ribo_file = 'no_struc.txt'
+
+        output_folders = [output_folder_r2r, output_folder_seq_struc,output_folder_seq_struc_add,output_fold_fa]
+        create_output_folders(output_folders)
+
+
+    # Call your function with the r2r_path parameter
+        process_files_for_r2r(input_folder, output_folder_r2r)
+
+        #process_files_for_r2r(input_folder, output_folder_r2r)
+        #print('R2R run finished')
+        process_files_for_seq_struc(output_folder_r2r, output_folder_seq_struc, no_struc_ribo_file)
+        #print('common style finished')
+        process_files_for_struc_note(output_folder_seq_struc,output_folder_seq_struc_add)
+        #print('structure feature added' )
+        process_files_make_mutation(output_folder_seq_struc_add,output_fold_fa)
+        #print(output_fold_fa)
+        print('SMDesigner mutation design finished')
+        print(f'you can find test output at {output_fold_fa}')
+        
+
+        for folder in [output_folder_r2r, output_folder_seq_struc, output_folder_seq_struc_add]:
+            if folder.exists() and folder.is_dir():
+                # Check if the folder is not empty
+                if not os.listdir(folder):
+                    # If the folder is empty, remove it
+                    folder.rmdir()
+                else:
+                    # If the folder is not empty, remove it along with all its contents
+                    shutil.rmtree(folder)
