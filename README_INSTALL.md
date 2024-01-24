@@ -1,11 +1,29 @@
 Download the package file from: https://github.com/lilihou/SMDesigner_0.1/blob/main/dist/SMDesigner-1.0.0.tar.gz
 
+System requirements
 
-SMDesigner Install successfully in the Anaconda environment of the Mac OS system
-and ....
+    Operating system: 
+      SMDesigner writtern by python, but it need external software R2R which writtern by C and perl. So you need run this program on UNIX, Linux and MacOS system.
+     
+    Compiler: 
+      Because the R2R source code is writtern by C and perl, you need the GNU C compiler gcc, and the C++ compiler g++.  Make sure your PATH environmental variable includes a directory with a Perl executable.
+    
+one independent programs:
 
-SMDesigner need R2R software. There is aumatic install program to install r2r in SMDesigner. but becaused of the r2r need special environment to install, this may be not work for some computer. if so, you need to install r2r by yourself, you can refer to:
-https://sourceforge.net/projects/weinberg-r2r/
+      R2R (Weinberg and Breaker, 2011) (for marking RNA structure feature),
+one library:
+
+      the Infernal library package (http://eddylab.org/infernal/), this is required by R2R.
+
+SMDesigner has been test successful UNIX and MacOS system.
+
+SMDesigner need R2R software. 
+
+    if you already have R2R installed on your computer: 
+      you could download the package, Unzip the package, and run dirrectly ./SMDesigner/ python SMDsigner3_test.py.
+    if you didn't have R2R: 
+      There is aumatic install program to install r2r in SMDesigner when you first run program. Becaused of the r2r need special environment to install, this may be not work for some computer. if so, you need to install r2r by yourself, you can refer to:
+      https://sourceforge.net/projects/weinberg-r2r/
 
 
 Below are two example to install SMDesigner successful:
@@ -51,7 +69,8 @@ MAC os system:
         1.1 check if Anaconda installation is optimized for Apple's M1 (ARM architecture) or Intel (x86_64 architecture) chips on macOS:
             conda info | grep platform
             if output is platform : osx-64, that's correct; if not, you will have problem install infernal with conda. You can install infernal by yourself and you can refer: http://eddylab.org/infernal/
-unix in window
+unix:
+
 
 
 
