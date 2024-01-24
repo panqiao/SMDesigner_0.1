@@ -12,7 +12,9 @@ SMDesigner - Structure mutation designer
 SMDesigner Install
 
 SMDesigner is packed with setup tools, you can use pip to install.
+
     download SMDesigner-1.0.0.tar.gz
+    
     pip install SMDesigner-1.0.0.tar.gz
 
 Check details in README_INSTALL.md file
@@ -21,6 +23,7 @@ Check details in README_INSTALL.md file
 Run test
 
 After command 'pip install SMDesigner-1.0.0.tar.gz'
-type 'SMDesigner'
-then type 'test' or '{your sample folder name with path}'
+
+    type 'SMDesigner' 
+    type 'test' or '{your sample folder name with path}'
     
