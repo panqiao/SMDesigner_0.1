@@ -1187,84 +1187,84 @@ def process_single_structure_add(input_folder_structure_add,file,output_fold_fa)
     #print('single_structure_add ended')
 
 # Main script
-def main():
+def main_test(input_folder):
 
-    input_folder = get_user_input()
+    #input_folder = get_user_input()
     
     #print(r2r_path)
-    if input_folder.name=='test':
-        input_folder=input_folder/'demo'
+    #if input_folder.name=='test':
+    input_folder=input_folder/'demo'
 
-        output_folder_r2r = Path('./test/riboswitch_cons_sto_test')
-        output_folder_seq_struc = Path('./test/seq_struc_riboswitch_test/')
-        output_folder_seq_struc_add=Path('./test/seq_struc_riboswitch_add_test')
-        output_fold_fa=Path('./test/seq_struc_mu_test')
-        no_struc_ribo_file = 'no_struc_ribo_test.txt'
+    output_folder_r2r = Path('./SMDesignerTest/riboswitch_cons_sto_test')
+    output_folder_seq_struc = Path('./SMDesignerTest/seq_struc_riboswitch_test/')
+    output_folder_seq_struc_add=Path('./SMDesignerTest/seq_struc_riboswitch_add_test')
+    output_fold_fa=Path('./SMDesignerTest/seq_struc_mu_test')
+    no_struc_ribo_file = 'no_struc_ribo_test.txt'
 
-        output_folders = [output_folder_r2r, output_folder_seq_struc,output_folder_seq_struc_add,output_fold_fa]
-        create_output_folders(output_folders)
+    output_folders = [output_folder_r2r, output_folder_seq_struc,output_folder_seq_struc_add,output_fold_fa]
+    create_output_folders(output_folders)
 
-    # Call your function with the r2r_path parameter
-        process_files_for_r2r(input_folder, output_folder_r2r)
-
-
-
-        #process_files_for_r2r(input_folder, output_folder_r2r)
-        #print('R2R run finished')
-        process_files_for_seq_struc(output_folder_r2r, output_folder_seq_struc, no_struc_ribo_file)
-        #print('common style finished')
-        process_files_for_struc_note(output_folder_seq_struc,output_folder_seq_struc_add)
-        #print('structure feature added' )
-        process_files_make_mutation(output_folder_seq_struc_add,output_fold_fa)
-        #print('mutation design finished')
-        for folder in [output_folder_r2r, output_folder_seq_struc, output_folder_seq_struc_add]:
-            if folder.exists() and folder.is_dir():
-                # Check if the folder is not empty
-                if not os.listdir(folder):
-                    # If the folder is empty, remove it
-                    folder.rmdir()
-                else:
-                    # If the folder is not empty, remove it along with all its contents
-                    shutil.rmtree(folder)
-        print('SMDesigner test finished')
-        print(f'you can find test output at {output_fold_fa}')
-
-    else:
-        input_folder_sample = input_folder.parents[0]
-        #print(input_folder_sample)
-        output_folder_r2r = input_folder_sample.joinpath( 'r2r_cons_sto')
-        #output_folder_r2r = Path(input_folder_sample+'/sample/r2r_cons_sto/')
-
-        output_folder_seq_struc = input_folder_sample.joinpath('seq_struc')
-        output_folder_seq_struc_add=input_folder_sample.joinpath('seq_struc_add')
-        output_fold_fa=input_folder_sample.joinpath('seq_struc_mu')
-        no_struc_ribo_file = 'no_struc.txt'
-
-        output_folders = [output_folder_r2r, output_folder_seq_struc,output_folder_seq_struc_add,output_fold_fa]
-        create_output_folders(output_folders)
+# Call your function with the r2r_path parameter
+    process_files_for_r2r(input_folder, output_folder_r2r)
 
 
-    # Call your function with the r2r_path parameter
-        process_files_for_r2r(input_folder, output_folder_r2r)
 
-        #process_files_for_r2r(input_folder, output_folder_r2r)
-        #print('R2R run finished')
-        process_files_for_seq_struc(output_folder_r2r, output_folder_seq_struc, no_struc_ribo_file)
-        #print('common style finished')
-        process_files_for_struc_note(output_folder_seq_struc,output_folder_seq_struc_add)
-        #print('structure feature added' )
-        process_files_make_mutation(output_folder_seq_struc_add,output_fold_fa)
-        #print(output_fold_fa)
-        print('SMDesigner mutation design finished')
-        print(f'you can find test output at {output_fold_fa}')
-        
+    #process_files_for_r2r(input_folder, output_folder_r2r)
+    #print('R2R run finished')
+    process_files_for_seq_struc(output_folder_r2r, output_folder_seq_struc, no_struc_ribo_file)
+    #print('common style finished')
+    process_files_for_struc_note(output_folder_seq_struc,output_folder_seq_struc_add)
+    #print('structure feature added' )
+    process_files_make_mutation(output_folder_seq_struc_add,output_fold_fa)
+    #print('mutation design finished')
+    for folder in [output_folder_seq_struc, output_folder_seq_struc_add]:
+        if folder.exists() and folder.is_dir():
+            # Check if the folder is not empty
+            if not os.listdir(folder):
+                # If the folder is empty, remove it
+                folder.rmdir()
+            else:
+                # If the folder is not empty, remove it along with all its contents
+                shutil.rmtree(folder)
+    print('SMDesigner test finished')
+    print(f'you can find test output at {output_fold_fa}')
 
-        for folder in [output_folder_r2r, output_folder_seq_struc, output_folder_seq_struc_add]:
-            if folder.exists() and folder.is_dir():
-                # Check if the folder is not empty
-                if not os.listdir(folder):
-                    # If the folder is empty, remove it
-                    folder.rmdir()
-                else:
-                    # If the folder is not empty, remove it along with all its contents
-                    shutil.rmtree(folder)
+def main_sample(input_folder):
+    input_folder_sample = input_folder.parents[0]
+    #print(input_folder_sample)
+    output_folder_r2r = input_folder_sample.joinpath( 'r2r_cons_sto')
+    #output_folder_r2r = Path(input_folder_sample+'/sample/r2r_cons_sto/')
+
+    output_folder_seq_struc = input_folder_sample.joinpath('seq_struc')
+    output_folder_seq_struc_add=input_folder_sample.joinpath('seq_struc_add')
+    output_fold_fa=input_folder_sample.joinpath('seq_struc_mu')
+    no_struc_ribo_file = 'no_struc.txt'
+
+    output_folders = [output_folder_r2r, output_folder_seq_struc,output_folder_seq_struc_add,output_fold_fa]
+    create_output_folders(output_folders)
+
+
+# Call your function with the r2r_path parameter
+    process_files_for_r2r(input_folder, output_folder_r2r)
+
+    #process_files_for_r2r(input_folder, output_folder_r2r)
+    #print('R2R run finished')
+    process_files_for_seq_struc(output_folder_r2r, output_folder_seq_struc, no_struc_ribo_file)
+    #print('common style finished')
+    process_files_for_struc_note(output_folder_seq_struc,output_folder_seq_struc_add)
+    #print('structure feature added' )
+    process_files_make_mutation(output_folder_seq_struc_add,output_fold_fa)
+    #print(output_fold_fa)
+    print('SMDesigner mutation design finished')
+    print(f'you can find sample output at {output_fold_fa}')
+    
+
+    for folder in [output_folder_seq_struc, output_folder_seq_struc_add]:
+        if folder.exists() and folder.is_dir():
+            # Check if the folder is not empty
+            if not os.listdir(folder):
+                # If the folder is empty, remove it
+                folder.rmdir()
+            else:
+                # If the folder is not empty, remove it along with all its contents
+                shutil.rmtree(folder)

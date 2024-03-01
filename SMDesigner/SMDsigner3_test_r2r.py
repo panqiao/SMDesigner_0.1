@@ -4,7 +4,9 @@ from pathlib import Path
 import re
 import subprocess
 import shutil
-from SMDesigner.main import main
+from SMDesigner.main import main_test,main_sample
+from SMDesigner.r2r_drawing_flag_test import main_r2r_test, main_r2r_sample
+
 '''
 def is_r2r_installed(path):
     #script_path = Path(__file__).parents[0]
@@ -26,6 +28,7 @@ def is_r2r_installed():
         # Use 'whereis' to find the R2R command
         result = subprocess.run(["whereis", "r2r"], capture_output=True, text=True)
         # Check if the output contains a path after 'r2r:'
+        print(result.stdout)
         if '/r2r' in result.stdout:
             return True
         else:
@@ -1242,15 +1245,40 @@ def starter_function():
     print(script_path)
     try:
         if is_r2r_installed():
+
+
             print("R2R already installed.")
-            main()
+            input_folder =get_user_input()
+            if input_folder.name=='test':
+                #input_folder=input_folder/'demo'
+                main_test(input_folder)
+                if "--run-r2r" in sys.argv:
+                    main_r2r_test(input_folder)
+            else:
+                main_sample(input_folder)
+                if "--run-r2r" in sys.argv:
+                    main_r2r_sample(input_folder)
+
+
         else:
             print("R2R is not installed. Installing now...")
             #install_r2r(r2r_install_path)
-            if install_r2r(r2r_install_path):
+            #install_r2r(r2r_install_path)
+            install_r2r(r2r_install_path)
+            if is_r2r_installed():
                 print("R2R installed successfully.")
                 print("Calling main() after installation.")
-                main()
+                input_folder=get_user_input()
+                if input_folder.name=='test':
+                    main_test(input_folder)
+                    if "--run-r2r" in sys.argv:
+                        main_r2r_test(input_folder)
+                else:
+                    main_sample(input_folder)
+                    if "--run-r2r" in sys.argv:
+                        main_r2r_sample(input_folder)
+                
+                #main()
             else:
                 print("Failed to install R2R.")
                 print('install R2R manually')

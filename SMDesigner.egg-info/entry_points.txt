@@ -1,2 +1,2 @@
 [console_scripts]
-SMDesigner = SMDesigner.SMDsigner3_test:starter_function
+SMDesigner = SMDesigner.SMDsigner3_test_r2r:starter_function

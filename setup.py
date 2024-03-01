@@ -21,7 +21,8 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'SMDesigner=SMDesigner.SMDsigner3_test:starter_function',
+            'SMDesigner=SMDesigner.SMDsigner3_test_r2r:starter_function',
+            #'r2r_drawing=SMDesigner.r2r_drawing_flag_test:main_r2r'
         ],
     },
     #package_data=package_data,

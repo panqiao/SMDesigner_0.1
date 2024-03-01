@@ -5,9 +5,10 @@ pyproject.toml
 setup.py
 SMDesigner/.DS_Store
 SMDesigner/R2R_install.sh
-SMDesigner/SMDsigner3_test.py
+SMDesigner/SMDsigner3_test_r2r.py
 SMDesigner/__init__.py
 SMDesigner/main.py
+SMDesigner/r2r_drawing_flag_test.py
 SMDesigner.egg-info/PKG-INFO
 SMDesigner.egg-info/SOURCES.txt
 SMDesigner.egg-info/dependency_links.txt
