@@ -38,4 +38,11 @@ you can proceed to run your own sample data by following these steps:
     'C:\Users\YourName\Documents', 
     you should type 
     'C:\Users\YourName\Documents\sample_data'.
+
+Drawing the secondary structure for each sequence with flag --–run-r2r.
+    1. Type 'SMDesigner --run-r2r' to launch the program with flag function
+    2. Type the 'test' or '<the path to your sample folder>'
+
+
+    
     
