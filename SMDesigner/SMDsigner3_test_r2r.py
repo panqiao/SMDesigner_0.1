@@ -1239,7 +1239,7 @@ def starter_function():
     print('SMDesigner3_test is running')
 #if __name__ == "__main__":
     script_path = Path(__file__).parents[0]
-    #print('SMDesigner3_test is runing')
+    print('R2R_install.sh path is'script_path)
     
     r2r_install_path = script_path / 'R2R_install.sh'
     print(script_path)
